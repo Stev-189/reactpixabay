@@ -11,6 +11,8 @@ class App extends Component {
     pagina:''
   }
 
+  vista=18
+
   scroll=()=>{
     const e=document.querySelector('.jumbotron')
     e.scrollIntoView('smooth', 'start')
@@ -28,6 +30,8 @@ class App extends Component {
 
   paginaSiguiente=()=>{
     let pagina= this.state.pagina
+    // console.log(this.state.imagenes.length);
+    if(this.state.imagenes.length !==this.vista)return null;
     pagina+=1;
     this.setState({pagina}, ()=>{
       this.consultarApi()
@@ -38,7 +42,7 @@ class App extends Component {
   consultarApi=()=>{
     const termino = this.state.termino,
           pagina= this.state.pagina;
-    const url= `https://pixabay.com/api/?key=19696617-677a5352ade65dc1628a42324&q=${termino}&per_page=18&page=${pagina}`
+    const url= `https://pixabay.com/api/?key=19696617-677a5352ade65dc1628a42324&q=${termino}&per_page=${this.vista}&page=${pagina}`
     // console.log(url);
     fetch(url)
       .then(r=>r.json())
